@@ -7,6 +7,7 @@ const gulp = require('gulp'),
 	  map = require('gulp-sourcemaps'),
 	  useref = require('gulp-useref'),
 	  iff = require('gulp-if'),
+	  concat = require('gulp-concat'),
 	  csso = require('gulp-csso'),
 	  cache = require('gulp-cache'),
 	  imagemin = require('gulp-imagemin'),
@@ -15,54 +16,58 @@ const gulp = require('gulp'),
 	  connect = require('gulp-connect'),
 	  del = require('del');
 
-/*
 
-1) htmlStyles compiles all sass/scss files to css
-2) htmlScripts concatenates and minifies css and js files
-3) styles creates a css map
-4) scripts creates a js map
-
-*/
-
-
+//-----STYLES-----//
 gulp.task('htmlStyles', () => {
 	return gulp.src('sass/global.scss')  		    
 			.pipe(sass())
+			.pipe(csso())
 			.pipe(gulp.dest('dist/css'));
 });
 
 
 gulp.task('styles', ['htmlStyles'], () => {
 	return gulp.src('dist/css/*.css')
-		.pipe(csso())
 		.pipe(map.init())
 		.pipe(rename('all.min.css'))
 		.pipe(map.write('./'))
 		.pipe(gulp.dest('dist/styles'));
 });
 
-gulp.task('htmlScripts', () => {
-	return gulp.src('js/**/*.js')
-			.pipe(map.init())					
-			.pipe(rename('all.min.js')) 
-			.pipe(map.write('./'))
-			.pipe(gulp.dest('dist/scripts'));
+
+//-----SCRIPTS-----//
+gulp.task('concat', () => {
+	return gulp.src(['node_modules/jquery/dist/jquery.min.js', 'js/circle/*.js'])
+			.pipe(concat('global.js'))
+			.pipe(gulp.dest('js'))
 });
 
 gulp.task('scripts', ['htmlScripts'], () => {
+	return gulp.src('dist/scripts/all.min.js')
+		.pipe(map.init())	
+		.pipe(rename('all.min.js'))		
+		.pipe(map.write('./'))
+		.pipe(gulp.dest('dist/scripts'));
+});
+
+gulp.task('htmlScripts', ['concat'], () => {
 	return gulp.src('index.html')
 		.pipe(useref())	
 		.pipe((iff('*.js', uglify()))) 
 		.pipe(gulp.dest('dist'));
 });
+
+
+//-----IMAGES-----/
 gulp.task('images', () => {
 	return gulp.src('images/*.+(png|jpg)')
 		.pipe(cache(imagemin()))			//Can be run WHENEVER 
 		.pipe(gulp.dest('dist/content'))
 });
 
+
 gulp.task('clean', () => {
-	return del.sync(['dist', 'css']);			//Clean up
+	return del.sync(['dist', 'css', 'js/global.js']);			//Clean up
 });
 
 

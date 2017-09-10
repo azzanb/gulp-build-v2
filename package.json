@@ -5,7 +5,8 @@
   "main": "gulpFile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "npm install gulp gulp-uglify gulp-sass gulp-rename gulp-sourcemaps gulp-useref gulp-if gulp-csso gulp-cache gulp-imagemin run-sequence browser-sync gulp-connect del --save-dev"
+    "install": "npm  install --save-dev jquery gulp-uglify gulp-sass gulp-concat gulp-rename gulp-sourcemaps gulp-useref gulp-if gulp-csso gulp-cache gulp-imagemin run-sequence browser-sync gulp-connect del",
+    "gulp": "npm install gulp --save-dev"
   },
   "author": "Azzan Braxton",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-cache": "^0.4.6",
+    "gulp-concat": "^2.6.1",
     "gulp-connect": "^5.0.0",
     "gulp-csso": "^3.0.0",
     "gulp-if": "^2.0.2",
@@ -23,6 +25,7 @@
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0",
     "gulp-useref": "^3.1.2",
+    "jquery": "^3.2.1",
     "run-sequence": "^2.1.0"
   }
 }
