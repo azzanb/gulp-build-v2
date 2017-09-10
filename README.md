@@ -3,4 +3,4 @@
 1) Run `npm install` to install project dependencies.
 
 
-2) Run `npm run gulp` to install gulp separately
+2) Run `npm run gulp` to install the gulp module separately
