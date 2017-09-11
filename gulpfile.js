@@ -90,13 +90,13 @@ gulp.task('sync', () => {
   	}); 
 });
 
-gulp.task('watch', () =>{
-	gulp.watch('sass/**/*scss', browserSync.reload)
-})
+gulp.task('watch', () => {
+	gulp.watch('./sass/*.scss', browserSync.reload)
+});
 
 
 //-----GULP-----//
 gulp.task('default', (callback) => {
-	runSequence('build', 'connect', ['sync', 'watch'], callback);
+	runSequence('build', 'connect', 'sync', 'watch', callback);
 });
 
