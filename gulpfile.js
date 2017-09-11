@@ -72,8 +72,8 @@ gulp.task('clean', () => {
 
 
 //-----BUILD-----//
-gulp.task('build', (callback) => {
-	runSequence('clean', ['styles', 'scripts', 'images'], callback);	
+gulp.task('build', ['clean'], (callback) => {
+	runSequence('styles', 'scripts', 'images', callback);	
 	gulp.src('icons/**/*').pipe(gulp.dest('dist/icons'));
 });
 
