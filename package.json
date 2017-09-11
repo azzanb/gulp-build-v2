@@ -4,9 +4,7 @@
   "description": "",
   "main": "gulpFile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "npm  install --save-dev jquery gulp-uglify gulp-sass gulp-concat gulp-rename gulp-sourcemaps gulp-useref gulp-if gulp-csso gulp-cache gulp-imagemin run-sequence browser-sync gulp-connect del",
-    "gulp": "npm install gulp --save-dev"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Azzan Braxton",
   "license": "ISC",
