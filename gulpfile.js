@@ -87,7 +87,7 @@ gulp.task('watch', () => {						//Watch .scss file changes
 gulp.task('sync', ['watch'], () => {			//If changes, show them on the web
 	browserSync.init({
 		server: {
-			baseDir: './'
+			baseDir: 'dist'
 		},
   	}); 
 });
