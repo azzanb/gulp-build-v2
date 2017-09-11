@@ -61,38 +61,42 @@ gulp.task('htmlScripts', ['concat'], () => {
 //-----IMAGES-----/
 gulp.task('images', () => {
 	return gulp.src('images/*.+(png|jpg)')
-		.pipe(cache(imagemin()))			//Can be run WHENEVER 
+		.pipe(cache(imagemin()))			 
 		.pipe(gulp.dest('dist/content'))
 });
 
 
 gulp.task('clean', () => {
-	return del.sync(['dist', 'css', 'js/global.js']);			//Clean up
+	return del.sync(['dist', 'css', 'js/global.js']);			
 });
 
 
+//-----BUILD-----//
 gulp.task('build', (callback) => {
-	runSequence('clean', 'styles', ['scripts', 'images'], callback);	//Create build
+	runSequence('clean', ['styles', 'scripts', 'images'], callback);	
 	gulp.src('icons/**/*').pipe(gulp.dest('dist/icons'));
 });
 
-gulp.task('connect', () => {					//Connect to server
+
+gulp.task('connect', () => {					
 	return connect.server({ port: 3000 });
 });
 
-gulp.task('watch', () => {						//Watch .scss file changes
-	gulp.watch('sass/**/*.scss', ['styles'])
-});
-
-gulp.task('sync', ['watch'], () => {			//If changes, show them on the web
+gulp.task('sync', () => {			
 	browserSync.init({
 		server: {
 			baseDir: 'dist'
-		},
+		}
   	}); 
 });
 
-gulp.task('default', (callback) => {						//Run 'gulp'
-	runSequence('build', 'connect', 'sync', callback);
+gulp.task('watch', () =>{
+	gulp.watch('sass/**/*scss', browserSync.reload)
+})
+
+
+//-----GULP-----//
+gulp.task('default', (callback) => {
+	runSequence('build', 'connect', ['sync', 'watch'], callback);
 });
 
